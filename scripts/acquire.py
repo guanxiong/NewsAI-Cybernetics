@@ -18,11 +18,12 @@ from xml.etree import ElementTree
 # ─── Configuration ───────────────────────────────────────────────
 
 RSS_FEEDS = [
-    {"name": "36Kr",          "url": "https://36kr.com/feed",          "default_tier": "2-Cognitive-Framework", "lang": "zh"},
-    {"name": "Reuters",        "url": "https://news.google.com/rss/search?q=when:1d+source:reuters&hl=en", "default_tier": "2-Cognitive-Framework", "lang": "en"},
-    {"name": "GoogleNews-Tech", "url": "https://news.google.com/rss/search?q=AI+technology&hl=en", "default_tier": "4-Professional", "lang": "en"},
-    {"name": "V2EX",           "url": "https://www.v2ex.com/index.xml", "default_tier": "4-Professional", "lang": "zh"},
-    {"name": "HN-RSS",         "url": "https://hnrss.org/frontpage",    "default_tier": "4-Professional", "lang": "en"},
+    {"name": "HN RSS",        "url": "https://hnrss.org/frontpage",                             "default_tier": "4-Professional",          "lang": "en"},
+    {"name": "dev.to",        "url": "https://dev.to/feed",                                      "default_tier": "4-Professional",          "lang": "en"},
+    {"name": "Ars Technica",  "url": "https://feeds.arstechnica.com/arstechnica/technology-lab", "default_tier": "2-Cognitive-Framework",   "lang": "en"},
+    {"name": "Techmeme",      "url": "https://www.techmeme.com/feed.xml",                        "default_tier": "2-Cognitive-Framework",   "lang": "en"},
+    {"name": "36Kr",          "url": "https://36kr.com/feed",                                    "default_tier": "2-Cognitive-Framework",   "lang": "zh"},
+    {"name": "The Verge",     "url": "https://www.theverge.com/rss/index.xml",                   "default_tier": "4-Professional",          "lang": "en"},
 ]
 
 # ─── Classification Engine ───────────────────────────────────────

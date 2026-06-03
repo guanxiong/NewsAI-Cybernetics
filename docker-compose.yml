@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  # ─── NocoDB — Structured database for News Items ───
+  nocodb:
+    image: nocodb/nocodb:latest
+    container_name: newsai-nocodb
+    ports:
+      - "8080:8080"
+    volumes:
+      - nocodb_data:/usr/app/data
+    environment:
+      NC_AUTH_JWT_SECRET: ${NC_JWT_SECRET:-change-me-in-production}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8080/api/v1/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ─── NewsAI Acquire — Daily automated acquisition ───
+  newsai-acquire:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: newsai-acquire
+    volumes:
+      - ./Inbox:/app/Inbox
+      - ./scripts:/app/scripts
+    environment:
+      - NOCODB_URL=http://nocodb:8080
+      - NOCODB_TOKEN=${NOCODB_TOKEN:-}
+      - ACQUIRE_SOURCES=all
+      - ACQUIRE_LIMIT=20
+      - ACQUIRE_CLASSIFY=true
+    depends_on:
+      nocodb:
+        condition: service_healthy
+    # Run acquisition every 4 hours
+    entrypoint: >
+      sh -c "
+        while true; do
+          echo \"[$(date)] Starting acquisition...\"
+          python3 /app/scripts/acquire.py --source all --limit 20 --classify > /app/Inbox/last-acquire.json 2>&1
+          echo \"[$(date)] Acquisition complete\"
+          sleep 14400
+        done
+      "
+    restart: unless-stopped
+
+volumes:
+  nocodb_data:
