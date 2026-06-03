@@ -1,91 +1,100 @@
+<div align="center">
+
 # 🧠 NewsAI-Cybernetics
 
-> **The world's first Engineering Cybernetics-driven personal news intelligence system.**
+### Stop collecting news. Start becoming from it.
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](scripts/acquire.py)
-[![Obsidian](https://img.shields.io/badge/Obsidian-Compatible-purple.svg)](https://obsidian.md)
-[![NocoDB](https://img.shields.io/badge/NocoDB-Integrated-orange.svg)](https://nocodb.com)
-[![Agent-Native](https://img.shields.io/badge/Agent-Claude%20%7C%20Gemini%20%7C%20Codex-green.svg)]()
-[![CI](https://img.shields.io/badge/GitHub_Actions-Daily_Acquire-yellow.svg)](.github/workflows/daily-acquire.yml)
+**The world's first Engineering Cybernetics-driven personal news intelligence system.**
 
-**Not another news aggregator.** A value transformation engine that turns information overload into personal decisions, cognitive growth, and actionable knowledge — powered by Qian Xuesen's Engineering Cybernetics.
+Not another aggregator. Not another AI summarizer. A **value transformation engine** that turns information overload into decisions, knowledge, and action.
+
+[![GitHub stars](https://img.shields.io/github/stars/guanxiong/NewsAI-Cybernetics?style=social)](https://github.com/guanxiong/NewsAI-Cybernetics)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Python 3.10+](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)](scripts/acquire.py)
+[![Obsidian](https://img.shields.io/badge/Obsidian-Compatible-7C3AED?logo=obsidian&logoColor=white)](https://obsidian.md)
+[![NocoDB](https://img.shields.io/badge/NocoDB-Integrated-FF6B35?logo=nocodb&logoColor=white)](https://nocodb.com)
+[![CI](https://github.com/guanxiong/NewsAI-Cybernetics/actions/workflows/daily-acquire.yml/badge.svg)](https://github.com/guanxiong/NewsAI-Cybernetics/actions)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&logoColor=white)](docker-compose.yml)
+
+**English** · [中文](#chinese-readme) · [日本語](#japanese-readme)
+
+**⭐ Star** · **🍴 Fork** · **📢 Share**
+
+</div>
 
 ---
 
-## 🎯 Why This Is Different
+## ⚡ 30 Seconds to Wow
 
-Every existing news system helps you **collect more**. None help you **become more**.
+```bash
+git clone https://github.com/guanxiong/NewsAI-Cybernetics.git
+cd NewsAI-Cybernetics
+bash demo.sh
+```
+
+**What you'll see** (real output, no mocks):
+
+```
+📡 Step 1/4: ACQUIRE — Fetching from 6 sources...
+  ✅ HackerNews API:  10 stories
+  ✅ RSS Feeds:      10 articles (dev.to, Ars, Techmeme, 36Kr, The Verge)
+  ✅ Total fetched:  20 items
+
+🏷️  Step 2/4: CLASSIFY — Auto-classification by 4-Layer Model
+  🔴 Tier 1 Core Decision:      1 items  (act within 1 hour)
+  🟡 Tier 2 Cognitive Framework: 8 items  (deep think today)
+  🔵 Tier 4 Professional:       11 items  (learn on demand)
+
+📰 Step 3/4: TOP ITEMS
+  🔴 ★★★★★ Hacking your PC using your speaker...
+  🟡 ★★★★  Gemma 4 12B: A unified multimodal model
+  🟡 ★★★★  Uber's $1,500/month AI limit is a useful signal
+
+⏱️  Pipeline time: < 10 seconds
+```
+
+**No API key needed. No Python packages to install. No config files.** Just bash.
+
+---
+
+## 🤔 Why This Exists
+
+Every news system has the same flaw: **they help you *collect* more, but don't help you *become* more.**
+
+RSS readers collect. AI summarizers condense. But none answer the real question:
+
+> *"How should this information change my life?"*
+
+This system answers that through **Qian Xuesen's Engineering Cybernetics** — treating personal information processing as a control system with stability control (anti-overload), feedback loops (PDCA self-improvement), and guided control (proactive acquisition).
+
+---
+
+## 🔥 What Makes This Different
 
 | Problem | Others | NewsAI-Cybernetics |
 |---------|--------|-------------------|
 | Information overload | Collect everything | **4-Layer Value Filter** — only what matters |
-| Read-and-forget | No lifecycle | **5-Step Processing Loop** — from inbox to action |
-| Static system | No self-improvement | **PDCA feedback** — the system gets smarter |
+| Read-and-forget | No lifecycle | **5-Step Loop** — from inbox to action to elimination |
+| Static system | No self-improvement | **PDCA feedback** — the system evolves itself |
 | Single format | MD or DB, not both | **Obsidian + NocoDB** — flexibility meets structure |
-| Human-only | Built for humans | **Agent-native** — AI agents are first-class users |
-| Manual curation | All manual | **Auto-acquire + Classify** — scripts + CI/CD |
-
-### Feature-by-Feature Comparison
-
-| Feature | FreshRSS | newspaper3k | llm-wiki | AI每日新闻 | **NewsAI** |
-|---------|----------|-------------|----------|-----------|-----------|
-| Stars on GitHub | 9k+ | 4k+ | 1k+ | 500+ | 🆕 New |
-| Auto-acquisition | ✅ RSS | ❌ | ❌ | ✅ 23源 | ✅ HN+RSS |
-| AI classification | ❌ | ❌ | ✅ | ✅ LLM | ✅ Rule engine |
-| Value-based filtering | ❌ | ❌ | ❌ | ❌ | ✅ **4-Layer** |
-| Complete lifecycle | ❌ | ❌ | ❌ | ❌ | ✅ **5-Step** |
-| Self-improvement (PDCA) | ❌ | ❌ | ❌ | ❌ | ✅ **Built-in** |
-| Dual-track storage | ❌ | ❌ | Partial | ❌ | ✅ **MD+DB** |
-| Agent-native design | ❌ | ❌ | Partial | ❌ | ✅ **Multi-agent** |
-| CI/CD automated | ❌ | ❌ | ❌ | ✅ GHA | ✅ **GHA daily** |
-| Knowledge precipitation | ❌ | ❌ | ✅ | ❌ | ✅ **Action→Knowledge** |
-| Theoretical foundation | ❌ | ❌ | ❌ | ❌ | ✅ **Cybernetics** |
+| Human-only | Built for humans | **Agent-native** — Claude Code / Gemini CLI / Codex |
+| Manual curation | All manual | **Auto-acquire + Classify + CI/CD** |
+| No theory | Just features | **Engineering Cybernetics foundation** |
 
 ---
 
-## 🏗️ Architecture
+## 🧠 The 4-Layer Value Filter Model
 
-```
-┌─────────────────────────────────────────────────────┐
-│                  NEWS AI CYBERNETICS                │
-│                                                     │
-│  ┌──────────┐    ┌──────────┐    ┌──────────────┐  │
-│  │ ACQUIRE  │───▶│  FILTER  │───▶│   PROCESS    │  │
-│  │ RSS/API  │    │ 4-Layer  │    │ By Tier      │  │
-│  │ Browser  │    │ Model    │    │ Strategy     │  │
-│  └──────────┘    └──────────┘    └──────┬───────┘  │
-│       ▲                                 │          │
-│       │         ┌──────────┐    ┌──────▼───────┐  │
-│       │         │ELIMINATE │◀───│ PRECIPITATE  │  │
-│       │         │ Clean up │    │ Knowledge DB │  │
-│       │         └──────────┘    └──────────────┘  │
-│       │                                             │
-│       └──────────── PDCA Feedback ◀────────────────│
-│                                                     │
-│  ┌─────────────────────┐  ┌─────────────────────┐  │
-│  │    OBSIDIAN (MD)     │  │   NOCODB (SQL)      │  │
-│  │  • Flexible notes    │  │  • Structured data  │  │
-│  │  • Dataview queries  │  │  • API access       │  │
-│  │  • Templates         │  │  • Sources mgmt     │  │
-│  └─────────────────────┘  └─────────────────────┘  │
-└─────────────────────────────────────────────────────┘
-```
+> Inspired by one question: *"Does this information affect my next 3 months?"*
 
----
+| Tier | Name | What | Time | Action |
+|------|------|------|------|--------|
+| 🔴 | **Core Decision** | Survival, safety, major interests | 30% | Act within 1 hour |
+| 🟡 | **Cognitive Framework** | Worldview-shaping trends | 40% | Deep think today |
+| 🟢 | **Social Connection** | Social currency, entertainment | 20% | 10-min scan |
+| 🔵 | **Professional** | Problem-solving knowledge | 10% | Learn on demand |
 
-## 📊 The 4-Layer Value Filter Model
-
-Inspired by the question: *"Does this information affect my next 3 months?"*
-
-| Layer | Name | What Goes Here | Time Budget | Action |
-|-------|------|----------------|-------------|--------|
-| **Tier 1** | 🔴 Core Decision | Survival, safety, major interests | 30% | Immediate action (< 1hr) |
-| **Tier 2** | 🟡 Cognitive Framework | Worldview-shaping trends & analysis | 40% | Deep thinking + connection |
-| **Tier 3** | 🟢 Social Connection | Social currency, emotional resonance | 20% | 10-min scan, forget after 7 days |
-| **Tier 4** | 🔵 Professional | Problem-solving knowledge | 10% | Pull on demand |
-
-**Key insight**: 90%+ of information is Tier 3. Most people spend 80% of their time on Tier 3 content. This system flips that ratio.
+**90%+ of information is Tier 3.** Most people spend 80% of their time on Tier 3. This system flips that ratio.
 
 ---
 
@@ -94,22 +103,35 @@ Inspired by the question: *"Does this information affect my next 3 months?"*
 ```
 Acquire → Filter → Process → Precipitate → Eliminate
    ↑                                        │
-   └───────── PDCA Feedback Loop ◀──────────┘
+   └──────────── PDCA Feedback Loop ◀─────────┘
 ```
 
-1. **Acquire**: Proactive subscription from curated sources (no doom-scrolling)
-2. **Filter**: "Does this affect my next 3 months?" → Assign Tier + Importance
-3. **Process**: Execute tier-specific strategy (immediate action / deep think / scan / pull)
-4. **Precipitate**: Transform into Action / Knowledge / Insight — store permanently
-5. **Eliminate**: Remove outdated/low-value items — prevent system entropy
+No information lives forever in this system. Everything has a lifecycle.
 
-**No information lives forever in this system.** Everything has a lifecycle.
+---
+
+## 🆚 vs The Known Alternatives
+
+| Feature | FreshRSS<br>(9k★) | llm-wiki<br>(1k★) | AI每日新闻<br>(500★) | **NewsAI** |
+|---------|----------|---------|----------|-----------|
+| **Theoretical foundation** | ❌ | ❌ | ❌ | ✅ Cybernetics |
+| **Value-based filtering** | ❌ | ❌ | ❌ | ✅ 4-Layer Model |
+| **Complete lifecycle** | ❌ | ❌ | ❌ | ✅ 5-Step Loop |
+| **Self-improvement (PDCA)** | ❌ | ❌ | ❌ | ✅ Built-in |
+| **Auto-acquisition** | ✅ RSS | ❌ | ✅ 23源 | ✅ HN+RSS |
+| **Auto-classification** | ❌ | ✅ LLM | ✅ LLM | ✅ Rule Engine |
+| **Knowledge precipitation** | ❌ | ✅ | ❌ | ✅ Action→Knowledge |
+| **Dual-track storage** | ❌ | Partial | ❌ | ✅ Obsidian+NocoDB |
+| **Agent-native** | ❌ | Partial | ❌ | ✅ Multi-agent |
+| **CI/CD automated** | ❌ | ❌ | ✅ | ✅ Daily |
+| **Docker deploy** | ✅ | ❌ | ❌ | ✅ One-click |
+| **No API key needed** | ✅ | ❌ | ❌ | ✅ Works immediately |
 
 ---
 
 ## 🚀 Quick Start
 
-### 30-Second Demo (No Installation Required)
+### Option 1: Just try it (30 seconds)
 
 ```bash
 git clone https://github.com/guanxiong/NewsAI-Cybernetics.git
@@ -117,107 +139,128 @@ cd NewsAI-Cybernetics
 bash demo.sh
 ```
 
-**What you'll see** — real-time HN acquisition + auto-classification in under 10 seconds:
-
-```
-📡 Step 1: Acquire — Fetching top Hacker News stories...
-   ✅ Fetched 10 stories from Hacker News API
-
-🔍 Step 2: Filter — Auto-Classification Results
-  🔴 [Core-Decision] ★5 Hacking your PC using your speaker without ever touching it
-  🟡 [Cognitive-Framework] ★4 Gemma 4 12B: A unified, encoder-free multimodal model
-  🟡 [Cognitive-Framework] ★4 Uber's $1,500/month AI limit is a useful signal
-  🔵 [Professional] ★3 Elixir v1.20: Now a gradually typed language
-  🔵 [Professional] ★3 DaVinci Resolve 21
-  ...
-```
-
-### Full Setup
-
-**Prerequisites**: Python 3.10+, [Obsidian](https://obsidian.md), [NocoDB](https://nocodb.com), AI Agent (Claude Code / Gemini CLI / Codex)
+### Option 2: Full setup with Obsidian
 
 ```bash
-# 1. Clone into your Obsidian vault
+# In your Obsidian vault
 cd your-obsidian-vault/pages/
 git clone https://github.com/guanxiong/NewsAI-Cybernetics.git News
 
-# 2. Fetch & classify news right now
+# Fetch & classify news right now
 python3 scripts/acquire.py --source all --limit 20 --classify
 
-# 3. Set up NocoDB (optional — system works with just Obsidian)
-#    Create base with schema matching TEMPLATE.md fields
-#    Update AGENTS.md with your NocoDB URL
-
-# 4. Let your AI agent run the system
-#    "Read AGENTS.md and follow its instructions"
+# Start using with your AI agent
+# Tell Claude Code: "Read pages/News/AGENTS.md and follow its instructions"
 ```
 
-### GitHub Actions (Automated Daily Reports)
+### Option 3: Docker (full stack with NocoDB)
 
-Fork this repo → GitHub Actions auto-runs every day at 01:17 UTC:
-- Fetches from HN API + RSS feeds
+```bash
+docker compose up -d
+# NocoDB at http://localhost:8080
+# Auto-acquisition every 4 hours
+```
+
+### Option 4: Fork for daily auto-acquisition
+
+Fork → GitHub Actions auto-runs every day at 01:17 UTC:
+- Fetches from HN + RSS
 - Auto-classifies by 4-Layer model
-- Generates daily Markdown report in `Inbox/`
-- Commits to your fork automatically
-
-### First Steps
-1. Read `STANDARDS.md` to understand the 4-layer model
-2. Read `MANUAL.md` for the 5-step processing workflow
-3. Use `TEMPLATE.md` to create your first news note
-4. Let your AI agent handle the rest
+- Generates daily report
+- Commits to your fork
 
 ---
 
-## 📁 Directory Structure
+## 📁 What's Inside
 
 ```
-pages/News/
-├── README.md          # You are here
-├── GOAL.md            # Project vision, OKR, roadmap
-├── AGENTS.md          # ⭐ Single source of truth for AI agents
-├── CLAUDE.md          # Redirect → AGENTS.md
-├── GEMINI.md          # Redirect → AGENTS.md
-├── TASK.md            # WBS task tracking
-├── VERSION.md         # PDCA iteration history
-├── STANDARDS.md       # 4-layer classification standards
-├── MANUAL.md          # 5-step processing manual
-├── TEMPLATE.md        # YAML frontmatter template
-├── ARCHIVE-REPORT.md  # Data governance reports
-├── auth.md            # Authorization records
-├── Inbox/             # Entry point for new information
-└── x 动态/            # Cold archive (processed items)
+├── README.md              # You are here
+├── AGENTS.md              # ⭐ Single source of truth for AI agents
+├── demo.sh                # 30-second interactive demo
+├── scripts/
+│   ├── acquire.py         # Multi-source fetcher + auto-classifier
+│   └── sync.py            # Obsidian ↔ NocoDB bidirectional sync
+├── skills/
+│   └── news-acquire.md    # Agent skill definition
+├── .github/workflows/
+│   └── daily-acquire.yml  # CI: daily auto-acquisition
+├── docker-compose.yml     # One-click full stack
+├── STANDARDS.md           # 4-Layer classification standard
+├── MANUAL.md              # 5-Step processing manual
+├── CONTRIBUTING.md         # How to contribute
+└── PROMOTION.md            # Launch materials (Show HN, Reddit, etc.)
 ```
+
+---
+
+## 🗺️ Roadmap
+
+### v1.x — Current
+- [x] 4-Layer Value Filter Model
+- [x] 5-Step Processing Loop with PDCA
+- [x] Multi-source auto-acquisition (HN API + 6 RSS)
+- [x] Auto-classification engine (keyword-weight)
+- [x] Obsidian + NocoDB dual-track
+- [x] GitHub Actions CI/CD
+- [x] Docker one-click deployment
+- [x] 28 real news items processed and stored
+
+### v2.0 — Intelligence
+- [ ] LLM-powered classification (OpenAI/Claude API)
+- [ ] Personal value model (adapts to your behavior)
+- [ ] Cross-source correlation (connect related items)
+- [ ] Proactive Tier-1 alerts
+
+### v3.0 — Community
+- [ ] Plugin system for custom sources/processors
+- [ ] Shared filter templates ("startup founder", "researcher", "investor")
+- [ ] Multi-user support
+- [ ] Web dashboard
 
 ---
 
 ## 🤝 Contributing
 
-This project thrives on diverse perspectives. Areas where we need help:
+We especially welcome: **new RSS connectors**, **classification improvements**, **translations** (中文/日本語/한국어), and **LLM integration**.
 
-- **🌐 Internationalization**: Translation of standards and templates
-- **🔌 Source Plugins**: Connectors for RSS, Reddit, HN, WeChat, etc.
-- **📊 Visualization**: Dashboard designs for the processing pipeline
-- **🧠 Theory**: Refine the cybernetics model — critique welcome
-- **🔄 Automation**: Obsidian ↔ NocoDB sync scripts
-
-See [GOAL.md](GOAL.md) for the full roadmap.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 ---
 
 ## 📜 License
 
-MIT License — Use it, fork it, improve it. Just remember: **information is for becoming, not collecting.**
+MIT — Use it, fork it, improve it.
 
 ---
 
-## 🙏 Acknowledgments
+<div align="center">
 
-- **Qian Xuesen (钱学森)** — Engineering Cybernetics, the theoretical foundation
-- **Andrej Karpathy** — LLM Wiki pattern, inspiration for agent-native knowledge systems
-- **Obsidian** — The best Markdown knowledge base
-- **NocoDB** — Open-source Airtable alternative
-- **Harness Engineering** — Engineering discipline principles
+**Remember: Information is for becoming, not collecting.** 🧠
+
+[⭐ Star this repo](https://github.com/guanxiong/NewsAI-Cyberpoints) · [🍴 Fork](https://github.com/guanxiong/NewsAI-Cybernetics/fork) · [📢 Share on X](https://twitter.com/intent/tweet?text=NewsAI-Cybernetics%20%E2%80%94%20the%20first%20Engineering%20Cybernetics-driven%20news%20intelligence%20system&url=https://github.com/guanxiong/NewsAI-Cybernetics) · [💬 Discuss](https://github.com/guanxiong/NewsAI-Cybernetics/discussions)
+
+</div>
 
 ---
 
-> *"The goal is not to collect more information, but to become more through information."*
+<a id="chinese-readme"></a>
+## 中文说明
+
+🧠 NewsAI-Cybernetics — 全球首个基于**工程控制论**的个人新闻智能处理系统。
+
+不做聚合器，做价值转化引擎。通过**4 层价值过滤模型**和**5 步闭环处理**，将信息过载转化为个人决策、认知与能力的增长动力。
+
+**30 秒体验**：`git clone → cd → bash demo.sh`
+
+无需 API Key，无需安装依赖，无需配置文件。
+
+<a id="japanese-readme"></a>
+## 日本語
+
+🧠 NewsAI-Cybernetics — 世界初の**エンジニアリング・サイバネティクス**駆動の個人ニュースインテリジェンスシステム。
+
+ニュース収集ではなく、**価値変換エンジン**。4層価値フィルターと5ステップ処理ループで、情報オーバーロードを個人の成長動力に変換します。
+
+**30秒で体験**：`git clone → cd → bash demo.sh`
+
+APIキー不要、依存パッケージ不要、設定ファイル不要。
