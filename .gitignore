@@ -1,0 +1,29 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Secrets
+.env
+.env.local
+**/secrets.*
+
+# Logs
+*.log
+
+# Temp
+tmp/
+temp/
+
+# Obsidian workspace (user-specific)
+.obsidian/
+
+# Media archives (too large for git)
+x 动态/*.mp4
+x 动态/*.mp3
