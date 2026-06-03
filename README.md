@@ -3,9 +3,11 @@
 > **The world's first Engineering Cybernetics-driven personal news intelligence system.**
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](scripts/acquire.py)
 [![Obsidian](https://img.shields.io/badge/Obsidian-Compatible-purple.svg)](https://obsidian.md)
 [![NocoDB](https://img.shields.io/badge/NocoDB-Integrated-orange.svg)](https://nocodb.com)
 [![Agent-Native](https://img.shields.io/badge/Agent-Claude%20%7C%20Gemini%20%7C%20Codex-green.svg)]()
+[![CI](https://img.shields.io/badge/GitHub_Actions-Daily_Acquire-yellow.svg)](.github/workflows/daily-acquire.yml)
 
 **Not another news aggregator.** A value transformation engine that turns information overload into personal decisions, cognitive growth, and actionable knowledge — powered by Qian Xuesen's Engineering Cybernetics.
 
@@ -22,6 +24,23 @@ Every existing news system helps you **collect more**. None help you **become mo
 | Static system | No self-improvement | **PDCA feedback** — the system gets smarter |
 | Single format | MD or DB, not both | **Obsidian + NocoDB** — flexibility meets structure |
 | Human-only | Built for humans | **Agent-native** — AI agents are first-class users |
+| Manual curation | All manual | **Auto-acquire + Classify** — scripts + CI/CD |
+
+### Feature-by-Feature Comparison
+
+| Feature | FreshRSS | newspaper3k | llm-wiki | AI每日新闻 | **NewsAI** |
+|---------|----------|-------------|----------|-----------|-----------|
+| Stars on GitHub | 9k+ | 4k+ | 1k+ | 500+ | 🆕 New |
+| Auto-acquisition | ✅ RSS | ❌ | ❌ | ✅ 23源 | ✅ HN+RSS |
+| AI classification | ❌ | ❌ | ✅ | ✅ LLM | ✅ Rule engine |
+| Value-based filtering | ❌ | ❌ | ❌ | ❌ | ✅ **4-Layer** |
+| Complete lifecycle | ❌ | ❌ | ❌ | ❌ | ✅ **5-Step** |
+| Self-improvement (PDCA) | ❌ | ❌ | ❌ | ❌ | ✅ **Built-in** |
+| Dual-track storage | ❌ | ❌ | Partial | ❌ | ✅ **MD+DB** |
+| Agent-native design | ❌ | ❌ | Partial | ❌ | ✅ **Multi-agent** |
+| CI/CD automated | ❌ | ❌ | ❌ | ✅ GHA | ✅ **GHA daily** |
+| Knowledge precipitation | ❌ | ❌ | ✅ | ❌ | ✅ **Action→Knowledge** |
+| Theoretical foundation | ❌ | ❌ | ❌ | ❌ | ✅ **Cybernetics** |
 
 ---
 
@@ -90,25 +109,56 @@ Acquire → Filter → Process → Precipitate → Eliminate
 
 ## 🚀 Quick Start
 
-### Prerequisites
-- [Obsidian](https://obsidian.md) (or any Markdown editor)
-- [NocoDB](https://nocodb.com) (self-hosted or cloud)
-- An AI agent: [Claude Code](https://claude.ai/code), [Gemini CLI](https://github.com/google-gemini/gemini-cli), or [Codex](https://github.com/openai/codex)
-
-### Installation
+### 30-Second Demo (No Installation Required)
 
 ```bash
-# 1. Clone this repository into your Obsidian vault
+git clone https://github.com/guanxiong/NewsAI-Cybernetics.git
+cd NewsAI-Cybernetics
+bash demo.sh
+```
+
+**What you'll see** — real-time HN acquisition + auto-classification in under 10 seconds:
+
+```
+📡 Step 1: Acquire — Fetching top Hacker News stories...
+   ✅ Fetched 10 stories from Hacker News API
+
+🔍 Step 2: Filter — Auto-Classification Results
+  🔴 [Core-Decision] ★5 Hacking your PC using your speaker without ever touching it
+  🟡 [Cognitive-Framework] ★4 Gemma 4 12B: A unified, encoder-free multimodal model
+  🟡 [Cognitive-Framework] ★4 Uber's $1,500/month AI limit is a useful signal
+  🔵 [Professional] ★3 Elixir v1.20: Now a gradually typed language
+  🔵 [Professional] ★3 DaVinci Resolve 21
+  ...
+```
+
+### Full Setup
+
+**Prerequisites**: Python 3.10+, [Obsidian](https://obsidian.md), [NocoDB](https://nocodb.com), AI Agent (Claude Code / Gemini CLI / Codex)
+
+```bash
+# 1. Clone into your Obsidian vault
 cd your-obsidian-vault/pages/
 git clone https://github.com/guanxiong/NewsAI-Cybernetics.git News
 
-# 2. Set up NocoDB
-# Create a new base using the schema in nocoDB-schema.json
-# Update AGENTS.md with your NocoDB connection details
+# 2. Fetch & classify news right now
+python3 scripts/acquire.py --source all --limit 20 --classify
 
-# 3. Start processing
-# Tell your AI agent: "Read pages/News/AGENTS.md and follow its instructions"
+# 3. Set up NocoDB (optional — system works with just Obsidian)
+#    Create base with schema matching TEMPLATE.md fields
+#    Update AGENTS.md with your NocoDB URL
+
+# 4. Let your AI agent run the system
+#    "Read AGENTS.md and follow its instructions"
 ```
+
+### GitHub Actions (Automated Daily Reports)
+
+Fork this repo → GitHub Actions auto-runs every day at 01:17 UTC:
+- Fetches from HN API + RSS feeds
+- Auto-classifies by 4-Layer model
+- Generates daily Markdown report in `Inbox/`
+- Commits to your fork automatically
 
 ### First Steps
 1. Read `STANDARDS.md` to understand the 4-layer model
