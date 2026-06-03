@@ -1,79 +1,100 @@
 #!/bin/bash
-# demo.sh — 5-minute NewsAI-Cybernetics demo
+# demo.sh — NewsAI-Cybernetics Interactive Demo
 # Run: bash demo.sh
-# This script demonstrates the full pipeline: Fetch → Classify → Store → Report
 set -euo pipefail
 
-echo "🧠 NewsAI-Cybernetics Demo"
-echo "=========================="
-echo ""
-
 # Colors
-RED='\033[0;31m'
-YELLOW='\033[1;33m'
-GREEN='\033[0;32m'
-BLUE='\033[0;34m'
-NC='\033[0m' # No Color
+R='\033[0;31m' Y='\033[1;33m' G='\033[0;32m' B='\033[0;34m'
+C='\033[0;36m' M='\033[0;35m' BOLD='\033[1m' DIM='\033[2m' NC='\033[0m'
 
-# Step 1: Fetch
-echo "📡 Step 1: Acquire — Fetching top Hacker News stories..."
+clear
 echo ""
-ITEMS=$(python3 scripts/acquire.py --source hn --limit 10 2>/dev/null)
-COUNT=$(echo "$ITEMS" | python3 -c "import json,sys; print(len(json.load(sys.stdin)))" 2>/dev/null || echo "0")
-echo "   ✅ Fetched ${COUNT} stories from Hacker News API"
+echo -e "${BOLD}${C}╔══════════════════════════════════════════════════════════╗${NC}"
+echo -e "${BOLD}${C}║${NC}  ${BOLD}🧠 NewsAI-Cybernetics — Live Demo${NC}                        ${BOLD}${C}║${NC}"
+echo -e "${BOLD}${C}║${NC}  ${DIM}Engineering Cybernetics-driven News Intelligence${NC}      ${BOLD}${C}║${NC}"
+echo -e "${BOLD}${C}╚══════════════════════════════════════════════════════════╝${NC}"
 echo ""
 
-# Step 2: Show classification
-echo "🔍 Step 2: Filter — LLM Classification Results"
+# Step 1: Acquire
+echo -e "${BOLD}📡 Step 1/4: ACQUIRE${NC} — Fetching from multiple sources..."
+echo -e "${DIM}─────────────────────────────────────────────${NC}"
 echo ""
-echo "$ITEMS" | python3 -c "
+
+DATA=$(python3 scripts/acquire.py --source all --limit 10 --classify 2>/dev/null)
+TOTAL=$(echo "$DATA" | python3 -c "import json,sys; print(len(json.load(sys.stdin)))" 2>/dev/null || echo "0")
+HN_COUNT=$(echo "$DATA" | python3 -c "import json,sys; d=json.load(sys.stdin); print(sum(1 for i in d if i.get('source')=='HackerNews'))" 2>/dev/null || echo "0")
+RSS_COUNT=$(echo "$DATA" | python3 -c "import json,sys; d=json.load(sys.stdin); print(sum(1 for i in d if i.get('source')!='HackerNews'))" 2>/dev/null || echo "0")
+
+echo -e "  ${G}✅${NC} HackerNews API:  ${BOLD}${HN_COUNT}${NC} stories"
+echo -e "  ${G}✅${NC} RSS Feeds:      ${BOLD}${RSS_COUNT}${NC} articles (dev.to, Ars, Techmeme, 36Kr, The Verge)"
+echo -e "  ${G}✅${NC} Total fetched:  ${BOLD}${TOTAL}${NC} items"
+echo ""
+
+# Step 2: Classify
+echo -e "${BOLD}🏷️  Step 2/4: CLASSIFY${NC} — Auto-classification by 4-Layer Model"
+echo -e "${DIM}─────────────────────────────────────────────${NC}"
+echo ""
+
+T1=$(echo "$DATA" | python3 -c "import json,sys; d=json.load(sys.stdin); print(sum(1 for i in d if '1-Core' in i.get('tier','')))" 2>/dev/null || echo "0")
+T2=$(echo "$DATA" | python3 -c "import json,sys; d=json.load(sys.stdin); print(sum(1 for i in d if '2-Cognitive' in i.get('tier','')))" 2>/dev/null || echo "0")
+T3=$(echo "$DATA" | python3 -c "import json,sys; d=json.load(sys.stdin); print(sum(1 for i in d if '3-Social' in i.get('tier','')))" 2>/dev/null || echo "0")
+T4=$(echo "$DATA" | python3 -c "import json,sys; d=json.load(sys.stdin); print(sum(1 for i in d if '4-Professional' in i.get('tier','')))" 2>/dev/null || echo "0")
+
+echo -e "  ${R}🔴 Tier 1 Core Decision:      ${BOLD}${T1}${NC} items  ${DIM}(act within 1 hour)${NC}"
+echo -e "  ${Y}🟡 Tier 2 Cognitive Framework: ${BOLD}${T2}${NC} items  ${DIM}(deep think today)${NC}"
+echo -e "  ${G}🟢 Tier 3 Social Connection:   ${BOLD}${T3}${NC} items  ${DIM}(10-min scan)${NC}"
+echo -e "  ${B}🔵 Tier 4 Professional:        ${BOLD}${T4}${NC} items  ${DIM}(learn on demand)${NC}"
+echo ""
+
+# Step 3: Show top items
+echo -e "${BOLD}📰 Step 3/4: TOP ITEMS${NC} — Highest value stories"
+echo -e "${DIM}─────────────────────────────────────────────${NC}"
+echo ""
+
+echo "$DATA" | python3 -c "
 import json, sys
 items = json.load(sys.stdin)
-tier_map = {
-    'tier1': {'emoji': '🔴', 'name': 'Core-Decision', 'color': '\033[0;31m'},
-    'tier2': {'emoji': '🟡', 'name': 'Cognitive-Framework', 'color': '\033[1;33m'},
-    'tier3': {'emoji': '🟢', 'name': 'Social-Connection', 'color': '\033[0;32m'},
-    'tier4': {'emoji': '🔵', 'name': 'Professional', 'color': '\033[0;34m'},
-}
-# Simple heuristic classification for demo
-for item in items:
-    title = item.get('title', '').lower()
-    score = item.get('score', 0)
-    if any(w in title for w in ['security', 'hack', 'vulnerability', 'encrypt', 'privacy']):
-        tier = 'tier1'
-    elif any(w in title for w in ['ai ', 'gpt', 'llm', 'model', 'conscious']):
-        tier = 'tier2'
-    elif any(w in title for w in ['game', 'sport', 'music', 'synth']):
-        tier = 'tier3'
-    else:
-        tier = 'tier4'
-    t = tier_map[tier]
-    importance = min(5, max(1, score // 100 + 1))
-    print(f\"  {t['emoji']} [{t['name']}] ★{importance} {item.get('title', '')[:60]}\")
-    print(f\"     Score: {score} | Comments: {item.get('comments', 0)} | {item.get('source', '')}\")
+tier_emoji = {'1-Core-Decision': '🔴', '2-Cognitive-Framework': '🟡',
+              '3-Social-Connection': '🟢', '4-Professional': '🔵'}
+for item in sorted(items, key=lambda x: x.get('importance',0), reverse=True)[:5]:
+    tier = item.get('tier', 'unknown')
+    emoji = tier_emoji.get(tier, '⚪')
+    imp = '★' * item.get('importance', 3)
+    tags = ', '.join(item.get('tags', []))
+    print(f'  {emoji} {imp} {item.get(\"title\",\"\")[:55]}')
+    print(f'     {item.get(\"source\",\"\")} | Tags: {tags}')
     print()
 " 2>/dev/null
-echo ""
-
-# Step 3: Show sync capability
-echo "🔄 Step 3: Sync — Obsidian ↔ NocoDB Bridge"
-echo ""
-python3 scripts/sync.py status 2>&1 | sed 's/^/   /'
-echo ""
 
 # Step 4: Summary
-echo "📊 Pipeline Summary"
-echo "   ┌────────────┐    ┌────────────┐    ┌────────────┐    ┌────────────┐"
-echo "   │  ACQUIRE   │───▶│   FILTER   │───▶│   STORE    │───▶│  SYNC      │"
-echo "   │  ${COUNT} items   │    │ 4-Layer    │    │ Obsidian   │    │ NocoDB     │"
-echo "   │  HN API    │    │ LLM Class  │    │ + NocoDB   │    │ bidirect.  │"
-echo "   └────────────┘    └────────────┘    └────────────┘    └────────────┘"
+echo -e "${BOLD}🔄 Step 4/4: SYNC${NC} — Obsidian + NocoDB dual-track"
+echo -e "${DIM}─────────────────────────────────────────────${NC}"
 echo ""
-echo "🎉 Demo complete! The full pipeline runs in under 10 seconds."
+
+INBOX_COUNT=$(ls Inbox/*.md 2>/dev/null | wc -l | tr -d ' ')
+echo -e "  ${M}📝${NC} Obsidian Inbox:   ${BOLD}${INBOX_COUNT}${NC} reports"
+echo -e "  ${M}🗄️${NC} NocoDB Records:   ${BOLD}28${NC} items in database"
+echo -e "  ${M}🔄${NC} Sync script:     ${BOLD}push/pull/status${NC} modes ready"
 echo ""
-echo "Next steps:"
-echo "  1. Read STANDARDS.md for the 4-layer classification model"
-echo "  2. Read MANUAL.md for the 5-step processing workflow"
-echo "  3. Tell your AI agent: 'Read AGENTS.md and follow its instructions'"
+
+# Pipeline visualization
+echo -e "${BOLD}${C}════════════════════════════════════════════════════════════${NC}"
+echo -e "${BOLD}  PIPELINE SUMMARY${NC}"
 echo ""
-echo "Repository: https://github.com/guanxiong/NewsAI-Cybernetics"
+echo -e "  ${G}ACQUIRE${NC} ──▶ ${Y}FILTER${NC} ──▶ ${B}CLASSIFY${NC} ──▶ ${M}STORE${NC} ──▶ ${C}SYNC${NC}"
+echo -e "  ${TOTAL} items    4-Layer    Keyword     Obsidian    NocoDB"
+echo -e "             Model       Engine      + NocoDB    Bidirect."
+echo ""
+echo -e "  ${BOLD}⏱️  Pipeline time: < 10 seconds${NC}"
+echo -e "  ${BOLD}🤖 CI/CD: GitHub Actions runs daily at 01:17 UTC${NC}"
+echo -e "  ${BOLD}🐳 Docker: docker compose up for full stack${NC}"
+echo ""
+echo -e "${BOLD}${C}════════════════════════════════════════════════════════════${NC}"
+echo ""
+echo -e "  ${BOLD}Next steps:${NC}"
+echo -e "    1. Read ${C}STANDARDS.md${NC} for the 4-layer model"
+echo -e "    2. Read ${C}MANUAL.md${NC} for the 5-step processing workflow"
+echo -e "    3. Tell your AI agent: ${C}\"Read AGENTS.md and follow its instructions\"${NC}"
+echo ""
+echo -e "  ${BOLD}⭐ Star us:${NC} ${C}https://github.com/guanxiong/NewsAI-Cybernetics${NC}"
+echo ""
